@@ -1,0 +1,44 @@
+---
+layout: post
+title: VSCode behind the scenes CMake
+tags: CMake
+categories: build tools
+---
+
+What happens when we run CTRL+P > CMake: Configure or CMake: Delete Cache and Reconfigure?
+
+### Behind the scenes
+
+Look at the messages in the **OUTPUT** tab,
+
+```
+[proc] Executing command: /usr/bin/cmake --no-warn-unused-cli -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=Debug
+
+-DCMAKE_C_COMPILER:FILEPATH=/usr/bin/gcc
+
+-DCMAKE_CXX_COMPILER:FILEPATH=/usr/bin/g++
+
+-S/home/amol/projects/github/cpp/x86_64
+
+-B/home/amol/projects/github/cpp/x86_64/build
+
+-G Ninja
+```
+
+The above is the cmake command that VSCode invokes to configure our CMakeLists.txt file.
+
+1. -D[CMAKE_EXPORT_COMPILE_COMMANDS](https://cmake.org/cmake/help/latest/variable/CMAKE_EXPORT_COMPILE_COMMANDS.html):BOOL=TRUE : If enabled, generates a compile_commands.json file
+    containing the exact compiler calls for all translation units of the project in machine-readable form.
+2. -D[CMAKE_BUILD_TYPE](https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html):STRING=Debug  : i.e. use Debug build.
+3. -DCMAKE_CXX_COMPILER:FILEPATH=/usr/bin/g++ : i.e. use g++ for compiling C++ sources.
+4. -S<path/to/source/dir> : i.e where the sources can be found.
+5. -B<path/to/build/dir> : i.e. location where to generate build artifacts.
+6. [-G Ninja](https://cmake.org/cmake/help/latest/generator/Ninja.html#generator:Ninja) : i.e. which generator to use for build. Generates build.ninja files.
+
+Nowhere here do we see **COMPILER FLAGS** being specified!
+
+Later when we click on **Build** icon in the status bar, we see the following in the **OUTPUT** tab,
+
+`
+[proc] Executing command: /usr/bin/cmake --build /home/amol/projects/github/cpp/x86_64/build --config Debug --target all --
+`
