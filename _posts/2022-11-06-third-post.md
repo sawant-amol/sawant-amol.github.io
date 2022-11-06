@@ -12,7 +12,7 @@ We found that we can select **Debug** or **Release** mode for our builds, but ha
 In order to find what flags CMake applies for these mode, we need to add **VERBOSE** argument to the **build** command.
 
 This can be done in multiple ways,
-1. `set(CMAKE_VERBOSE_MAKEFILE ON)` : adding this to the CMakeLists.txt file enable verbosity on that particular tree node, but is not passed to other CMakeLists.txt files.
+1. `set(CMAKE_VERBOSE_MAKEFILE ON CACHE BOOL "ON" FORCE)` : adding this to the CMakeLists.txt file enable verbosity on that particular tree node, but is not passed to other CMakeLists.txt files.
 2. Update settings in **CMake Tools** extension.
    - Find **Cmake: Build Tool Args** : click **Add Item**, enter `--verbose`
 
