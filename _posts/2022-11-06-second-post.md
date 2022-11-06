@@ -5,7 +5,7 @@ tags: CMake
 categories: build tools
 ---
 
-What happens when we run CTRL+P > CMake: Configure or CMake: Delete Cache and Reconfigure?
+What happens when we run *CTRL+P > CMake: Configure* or *CMake: Delete Cache and Reconfigure*?
 
 ### Behind the scenes
 
