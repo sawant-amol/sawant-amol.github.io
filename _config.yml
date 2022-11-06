@@ -1,0 +1,9 @@
+# Site settings
+title: Programming How-to blog
+author:
+  name: Amol Sawant
+  email: amol005@gmail.com
+description: "Learnings and how-to's in programming world."
+
+# Build settings
+remote_theme: jekyll/minima
