@@ -6,7 +6,7 @@ categories: build tools
 ---
 
 We now know how to enable the *verbose* setting in CMakeLists.txt allowing us to view the **Debug** mode options.
-And here they are,
+And here they are, for the static library;
 
 `
 [build] [7/14  14% :: 0.329] /usr/bin/g++  -I/home/amol/projects/github/cpp/x86_64/sensors/src -g -MD  
@@ -15,3 +15,41 @@ And here they are,
 -o sensors/CMakeFiles/sensors.dir/src/sensor.cpp.o   
 -c /home/amol/projects/github/cpp/x86_64/sensors/src/sensor.cpp
 `
+
+These are
+
+-[g](https://gcc.gnu.org/onlinedocs/gcc/Debugging-Options.html#Debugging-Options) : provides debugging feature for your program. You will need this when you want to use gdb or valgrind.     
+
+-[MD](https://gcc.gnu.org/onlinedocs/gcc/Preprocessor-Options.html#Preprocessor-Options) :    
+
+-[MT](https://gcc.gnu.org/onlinedocs/gcc/Preprocessor-Options.html#Preprocessor-Options) <target> :    
+  
+-[MF](https://gcc.gnu.org/onlinedocs/gcc/Preprocessor-Options.html#Preprocessor-Options) <file> :     
+  
+And for the main.cpp *helloworld* binary;
+
+`
+[build] [9/14  28% :: 0.428] : && /usr/bin/g++ -g  helloworld/CMakeFiles/helloworld.dir/src/main.cpp.o -o helloworld/helloworld  sensors/libsensors.a && :
+[build] [9/14  35% :: 0.935] /usr/bin/g++  -isystem /home/amol/projects/github/cpp/x86_64/build/_deps/googletest-src/googletest/include -isystem /home/amol/projects/github/cpp/x86_64/build/_deps/googletest-src/googletest -g -Wall -Wshadow -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -MD -MT _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o -MF _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o.d -o _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o -c /home/amol/projects/github/cpp/x86_64/build/_deps/googletest-src/googletest/src/gtest_main.cc
+`
+
+Here again we find the same ones as above i.e. -g, -MD -MT -MF as well as new ones,
+  
+-[isystem](https://gcc.gnu.org/onlinedocs/gcc/Directory-Options.html#Directory-Options):
+  
+-[Wall](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#Warning-Options):
+  
+-[Wshadow](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#Warning-Options): [warns whenever a local variable or type declaration shadows another variable, parameter, class member, etc.](https://bytes.usc.edu/cs104/wiki/gcc/)
+  
+-*Wno-error=dangling-else*:
+  
+-[fexceptions](https://gcc.gnu.org/onlinedocs/gcc/Code-Gen-Options.html#Code-Gen-Options): Enable exception handling. Generates extra code needed to propagate exceptions. For some targets, this implies GCC generates frame unwind information for all functions, which can produce significant data size overhead, although it does not affect execution. If you do not specify this option, GCC enables it by default for languages like C++ that normally require exception handling, and disables it for languages like C that do not normally require it. However, you may need to enable this option when compiling C code that needs to interoperate properly with exception handlers written in C++. You may also wish to disable this option if you are compiling older C++ programs that don’t use exception handling. 
+
+-[Wextra](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#Warning-Options):
+
+-*Wno-unused-parameter*:
+  
+-*Wno-missing-field-initializers*:
+  
+As you can see there are still a few option-flags which are not found in the gcc [docs](https://gcc.gnu.org/onlinedocs/gcc/Option-Summary.html)
+  
